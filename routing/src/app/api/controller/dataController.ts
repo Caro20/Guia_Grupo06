@@ -6,6 +6,21 @@ const data = fs.readFileSync(filePath, "utf-8");
 const jsonData = JSON.parse(data);
 const array: User[] = jsonData as User[];
 
+export function getUserByNamePassword(
+  name: string,
+  password: string
+): User | undefined {
+  let index = array.findIndex(
+    (user) =>
+      user.name.toUpperCase() === name.toUpperCase() &&
+      user.password === password
+  );
+  if (index !== -1) {
+    return array[index];
+  }
+  return undefined;
+}
+
 export function deleteUser(id: number): boolean {
   let index = array.findIndex((user) => user.id == id);
   if (index != -1) {
